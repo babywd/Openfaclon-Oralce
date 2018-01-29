@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import urllib2
 import argparse
 import cx_Oracle
 import inspect
@@ -423,14 +424,13 @@ class Checks:
 class Main(Checks):
 
 	def __init__(self):
-		self.username = 'username'
-		self.password = 'password'
+		self.username = 'xxx'
+		self.password = 'xxx'
 		self.address = '1.1.1.1'
-		self.database = 'sid'
+		self.database = 'xxx'
 		self.ip = socket.gethostname()
 		self.step = 60
-		self.timestamp = int(time.time())	
-		
+		self.timestamp = int(time.time())			
 		self.monit_keys = [
 				('check_active','GAUGE'),
 				('rcachehit','GAUGE'),
@@ -701,19 +701,17 @@ class Main(Checks):
 		request.add_header("Content-Type",'application/json')
 		request.get_method = lambda: method
 		try:
-			pass
-			connection = opener.open(request)
+				pass
+				connection = opener.open(request)
 		except urllib2.HTTPError,e:
-			connection = e
+				connection = e
 
 		if connection.code == 200:
-			print connection.read()
+				print connection.read()
 		else:
-			print '{"err":1,"msg":"%s"}' % connection
-
-
-#		print self.monit_keys
-		print json.dumps(p, sort_keys=True,indent=4)
+				print '{"err":1,"msg":"%s"}' % connection
+				
+#		print json.dumps(p, sort_keys=True,indent=4)
 
 if __name__ == '__main__':
 	proc = commands.getoutput(' ps -ef|grep %s|grep -v grep|wc -l ' % os.path.basename(sys.argv[0]))
