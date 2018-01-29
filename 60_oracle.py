@@ -480,11 +480,14 @@ class Main(Checks):
 		p = []
 		try:
 			self.db_connect()
-			self.get_tablespaces_add_monitlist()
-			self.get_tablespaces_temp_add_monitlist()
-			self.get_asm_add_monitlist()
-		finally:
-			self.db_close()
+			try:
+				self.get_tablespaces_add_monitlist()
+				self.get_tablespaces_temp_add_monitlist()
+				self.get_asm_add_monitlist()
+			finally:
+				self.db_close()
+		except Exception, err:
+			print err
 		
 		for key,vtype in self.monit_keys:
 			try:
